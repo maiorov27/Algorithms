@@ -128,3 +128,5 @@ public class Percolation {
         System.out.println(stat.isFull(1,6));
     }
 }
+
+// com
