@@ -17,12 +17,12 @@ public class Deque<Item> {
     }
 
     public boolean isEmpty() {
-        return false;
-    }                 // is the deque empty?
+        return size == 0;
+    }
 
     public int size() {
-        return 0;
-    }              // return the number of items on the deque
+        return size;
+    }
 
     public void addFirst(Item item) {
         Node oldFirst = first;
@@ -51,20 +51,21 @@ public class Deque<Item> {
         } else {
             oldLast.next = last;
         }
-
-    }           // insert the item at the end
+    }
 
     public Item removeFirst() {
         Item temp = first.value;
         first = first.next;
+        size--;
         return temp;
-    }                // delete and return the item at the front
+    }
 
     public Item removeLast() {
         Item temp = last.value;
         last = last.prev;
+        size--;
         return temp;
-    }                 // delete and return the item at the end
+    }
 
     public Iterator<Item> iterator() {
         return new IterableDeque();

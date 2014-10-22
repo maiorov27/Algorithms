@@ -50,5 +50,30 @@ public class DequeTest {
         assertThat(deque.removeFirst()).isEqualTo(1);
     }
 
+    @Test
+    public void increaseDequeSizeOnEveryAddOperation() {
+        deque.addFirst(1);
+        deque.addFirst(2);
+        deque.addLast(3);
+        deque.addLast(4);
+        assertThat(deque.size()).isEqualTo(4);
+    }
+
+    @Test
+    public void decreaseDequeSizeonEveryRemoveOperation() {
+        deque.addFirst(1);
+        deque.addFirst(2);
+        deque.addLast(3);
+        deque.addLast(4);
+        deque.removeFirst();
+        deque.removeFirst();
+        assertThat(deque.size()).isEqualTo(2);
+        assertThat(deque.isEmpty()).isEqualTo(false);
+        deque.removeFirst();
+        deque.removeFirst();
+        assertThat(deque.size()).isEqualTo(0);
+        assertThat(deque.isEmpty()).isEqualTo(true);
+    }
+
 
 }
