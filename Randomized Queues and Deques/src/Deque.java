@@ -2,18 +2,19 @@ import java.util.Iterator;
 
 public class Deque<Item> {
 
-    private Node first;
-    private Node last;
+    private Node<Item> first;
+    private Node<Item> last;
+    private int size;
 
     private class Node<Item> {
-        private Node next;
-        private Node prev;
+        private Node<Item> next;
+        private Node<Item> prev;
         private Item value;
     }
 
     public Deque() {
 
-    }                       // construct an empty deque
+    }
 
     public boolean isEmpty() {
         return false;
@@ -28,7 +29,14 @@ public class Deque<Item> {
         first = new Node();
         first.value = item;
         first.next = oldFirst;
-        oldFirst.prev = first;
+        size++;
+
+        if (size == 1) {
+            last = first;
+        } else {
+            oldFirst.prev = first;
+        }
+
     }
 
     public void addLast(Item item) {
@@ -36,20 +44,31 @@ public class Deque<Item> {
         last = new Node();
         last.value = item;
         last.prev = oldLast;
+        size++;
+
+        if (size == 1) {
+            first = last;
+        } else {
+            oldLast.next = last;
+        }
 
     }           // insert the item at the end
 
     public Item removeFirst() {
-        return null;
+        Item temp = first.value;
+        first = first.next;
+        return temp;
     }                // delete and return the item at the front
 
     public Item removeLast() {
-        return null;
+        Item temp = last.value;
+        last = last.prev;
+        return temp;
     }                 // delete and return the item at the end
 
     public Iterator<Item> iterator() {
         return new IterableDeque();
-    }         // return an iterator over items in order from front to end
+    }
 
     public static void main(String[] args) {
 
@@ -57,15 +76,20 @@ public class Deque<Item> {
 
 
     private class IterableDeque implements Iterator<Item> {
+        private int itSize = size;
+        private Node<Item> nextNode = first;
 
         @Override
         public boolean hasNext() {
-            return false;
+            itSize--;
+            return itSize < 0;
         }
 
         @Override
         public Item next() {
-            return null;
+            Item temp = first.value;
+            nextNode = nextNode.next;
+            return temp;
         }
     }
 
