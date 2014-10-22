@@ -2,6 +2,15 @@ import java.util.Iterator;
 
 public class Deque<Item> {
 
+    private Node first;
+    private Node last;
+
+    private class Node<Item> {
+        private Node next;
+        private Node prev;
+        private Item value;
+    }
+
     public Deque() {
 
     }                       // construct an empty deque
@@ -15,10 +24,18 @@ public class Deque<Item> {
     }              // return the number of items on the deque
 
     public void addFirst(Item item) {
-
-    }          // insert the item at the front
+        Node oldFirst = first;
+        first = new Node();
+        first.value = item;
+        first.next = oldFirst;
+        oldFirst.prev = first;
+    }
 
     public void addLast(Item item) {
+        Node oldLast = last;
+        last = new Node();
+        last.value = item;
+        last.prev = oldLast;
 
     }           // insert the item at the end
 
