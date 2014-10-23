@@ -28,7 +28,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
         }
         availableDigits++;
         int position = findPositionToInsertNewValue();
-        itemsHolder[position] = item;
+        itemsHolder[position++] = item;
     }
 
     private Integer findPositionToInsertNewValue() {
