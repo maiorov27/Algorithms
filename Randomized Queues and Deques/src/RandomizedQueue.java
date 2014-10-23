@@ -1,7 +1,7 @@
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class RandomizedQueue<Item> {
+public class RandomizedQueue<Item> implements Iterable<Item>{
 
     private  final int INITIAL_SIZE = 2;
     private int availableDigits;
@@ -111,6 +111,11 @@ public class RandomizedQueue<Item> {
         private void throwExceptionIfItWasLastElement() {
             if (hasNext() == false)
                 throw new NoSuchElementException();
+        }
+
+        @Override
+        public void remove() {
+            throw new UnsupportedOperationException();
         }
     }
 

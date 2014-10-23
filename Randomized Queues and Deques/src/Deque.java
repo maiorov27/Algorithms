@@ -1,7 +1,7 @@
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class Deque<Item> {
+public class Deque<Item> implements Iterable<Item> {
 
     private Node<Item> first;
     private Node<Item> last;
@@ -92,19 +92,25 @@ public class Deque<Item> {
 
         @Override
         public boolean hasNext() {
-            itSize--;
             return itSize > 0;
         }
 
         @Override
         public Item next() {
+
             if (hasNext()) {
+                itSize--;
                 Item temp = nextNode.value;
                 nextNode = nextNode.next;
                 return temp;
             } else {
                 throw new NoSuchElementException();
             }
+        }
+
+        @Override
+        public void remove() {
+            throw new UnsupportedOperationException();
         }
     }
 
