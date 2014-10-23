@@ -2,34 +2,77 @@ import java.util.Iterator;
 
 public class RandomizedQueue<Item> {
 
-    public RandomizedQueue() {
+    private  final int INITIAL_SIZE = 10;
+    private int size;
+    private int currentPosPointer = 0;
+    private Item[] itemsHolder;
 
-    }               // construct an empty randomized queue
+
+    public RandomizedQueue() {
+        itemsHolder = (Item[]) new Object[INITIAL_SIZE];
+    }
 
     public boolean isEmpty() {
         return false;
-    }                // is the queue empty?
+    }
 
     public int size() {
-        return 0;
-    }               // return the number of items on the queue
+        return size;
+    }
 
     public void enqueue(Item item) {
-    }          // add the item
+        if (size == itemsHolder.length) {
+            expandArray(itemsHolder);
+        }
+        size++;
+        itemsHolder[currentPosPointer++] = item;
+    }
+
+    private int getRandomNumber() {
+        int position = 0;
+        while ( itemsHolder[position] == null ) {
+            position = StdRandom.uniform(size);
+        }
+        return position;
+    }
+
+    private void expandArray(Item[] itemsHolder) {
+        int size = itemsHolder.length*2;
+        copyArray(itemsHolder, size);
+    }
+
+    private void copyArray(Item[] itemsHolder, int size) {
+        Item[] temp = (Item[]) new Object[size];
+        for (int i = 0; i < itemsHolder.length; i++){
+            if (itemsHolder[i] != null) {
+                temp[i] = itemsHolder[i];
+            }
+        }
+        itemsHolder = temp;
+    }
+
+    private void squeezeArray(Item[] itemsHolder) {
+        int size = itemsHolder.length / 4;
+        copyArray(itemsHolder, size);
+    }
+
 
     public Item dequeue() {
-        return null;
-    }        // delete and return a random item
+        if (size == itemsHolder.length / 4) {
+               squeezeArray(itemsHolder);
+        }
+        size--;
+        int position = getRandomNumber();
+        return itemsHolder[position];
+    }
 
     public Item sample() {
-        return null;
-    }      // return (but do not delete) a random item
+        int position = getRandomNumber();
+        return itemsHolder[position];
+    }
 
     public Iterator<Item> iterator() {
         return null;
-    }    // return an independent iterator over items in random order
-
-    public static void main(String[] args) {
-    }  // unit testing
+    }
 
 }
