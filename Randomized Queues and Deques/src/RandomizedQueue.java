@@ -63,7 +63,9 @@ public class RandomizedQueue<Item> {
         }
         size--;
         int position = getRandomNumber();
-        return itemsHolder[position];
+        Item temp = itemsHolder[position];
+        itemsHolder[position] = null;
+        return temp;
     }
 
     public Item sample() {
