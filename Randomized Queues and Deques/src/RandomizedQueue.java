@@ -120,11 +120,9 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
         @Override
         public Item next() {
             throwExceptionIfItWasLastElement();
-            while (itemsHolder[position] == null) {
-                position++;
-            }
+            int position = getRandomNumber();
             availableDigitsToIterate--;
-            return itemsHolder[position++];
+            return itemsHolder[position];
         }
 
         private void throwExceptionIfItWasLastElement() {

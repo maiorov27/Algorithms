@@ -72,11 +72,11 @@ public class RandomizedQueueTest {
         randQueue.enqueue(5);
         Iterator<Integer> it = randQueue.iterator();
         assertThat(it.hasNext()).isEqualTo(true);
-        assertThat(it.next()).isEqualTo(1);
-        assertThat(it.next()).isEqualTo(2);
-        assertThat(it.next()).isEqualTo(3);
-        assertThat(it.next()).isEqualTo(4);
-        assertThat(it.next()).isEqualTo(5);
+        assertThat(it.next()).isIn(1,2,3,4,5);
+        assertThat(it.next()).isIn(1,2,3,4,5);
+        assertThat(it.next()).isIn(1,2,3,4,5);
+        assertThat(it.next()).isIn(1,2,3,4,5);
+        assertThat(it.next()).isIn(1,2,3,4,5);
         assertThat(it.hasNext()).isEqualTo(false);
     }
 
@@ -89,11 +89,11 @@ public class RandomizedQueueTest {
         randQueue.enqueue(5);
         Iterator<Integer> it = randQueue.iterator();
         assertThat(it.hasNext()).isEqualTo(true);
-        assertThat(it.next()).isEqualTo(1);
-        assertThat(it.next()).isEqualTo(2);
-        assertThat(it.next()).isEqualTo(3);
-        assertThat(it.next()).isEqualTo(4);
-        assertThat(it.next()).isEqualTo(5);
+        assertThat(it.next()).isIn(1,2,3,4,5);
+        assertThat(it.next()).isIn(1,2,3,4,5);
+        assertThat(it.next()).isIn(1,2,3,4,5);
+        assertThat(it.next()).isIn(1,2,3,4,5);
+        assertThat(it.next()).isIn(1,2,3,4,5);
         assertThat(it.hasNext()).isEqualTo(false);
         it.next();
     }
