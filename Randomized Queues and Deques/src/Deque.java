@@ -71,11 +71,6 @@ public class Deque<Item> {
         return new IterableDeque();
     }
 
-    public static void main(String[] args) {
-
-    }  // unit testing
-
-
     private class IterableDeque implements Iterator<Item> {
         private int itSize = size;
         private Node<Item> nextNode = first;
@@ -83,12 +78,12 @@ public class Deque<Item> {
         @Override
         public boolean hasNext() {
             itSize--;
-            return itSize < 0;
+            return itSize > 0;
         }
 
         @Override
         public Item next() {
-            Item temp = first.value;
+            Item temp = nextNode.value;
             nextNode = nextNode.next;
             return temp;
         }

@@ -1,6 +1,8 @@
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Iterator;
+
 import static org.assertj.core.api.Assertions.*;
 
 
@@ -60,7 +62,7 @@ public class DequeTest {
     }
 
     @Test
-    public void decreaseDequeSizeonEveryRemoveOperation() {
+    public void decreaseDequeSizeOnEveryRemoveOperation() {
         deque.addFirst(1);
         deque.addFirst(2);
         deque.addLast(3);
@@ -73,6 +75,21 @@ public class DequeTest {
         deque.removeFirst();
         assertThat(deque.size()).isEqualTo(0);
         assertThat(deque.isEmpty()).isEqualTo(true);
+    }
+
+    @Test
+    public void canIterateThrougElements() {
+        deque.addFirst(1);
+        deque.addLast(2);
+        deque.addLast(3);
+        deque.addFirst(4);
+        Iterator<Integer> it = deque.iterator();
+        assertThat(it.hasNext()).isEqualTo(true);
+        assertThat(it.next()).isEqualTo(4);
+        assertThat(it.next()).isEqualTo(1);
+        assertThat(it.next()).isEqualTo(2);
+        assertThat(it.next()).isEqualTo(3);
+        assertThat(it.hasNext()).isEqualTo(false);
     }
 
 
