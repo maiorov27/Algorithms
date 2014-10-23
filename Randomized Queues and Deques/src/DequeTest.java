@@ -2,6 +2,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 import static org.assertj.core.api.Assertions.*;
 
@@ -90,6 +91,26 @@ public class DequeTest {
         assertThat(it.next()).isEqualTo(2);
         assertThat(it.next()).isEqualTo(3);
         assertThat(it.hasNext()).isEqualTo(false);
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void throwNullPointerExceptionOnAtemptToAddNullItem() {
+        deque.addFirst(null);
+    }
+
+    @Test(expected = NoSuchElementException.class)
+    public void throwNoSuchElementException() {
+        deque.removeFirst();
+    }
+
+    @Test(expected = UnsupportedOperationException.class)
+    public void dontRemoveElementThroughIterator() {
+        deque.iterator().remove();
+    }
+
+    @Test(expected = NoSuchElementException.class)
+    public void throwNoSuchElementExceptionWhenNextCalledOnEmptyDeque() {
+        deque.iterator().next();
     }
 
 
