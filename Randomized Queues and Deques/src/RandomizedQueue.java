@@ -1,9 +1,9 @@
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class RandomizedQueue<Item> implements Iterable<Item>{
+public class RandomizedQueue<Item> implements Iterable<Item> {
 
-    private  final int INITIAL_SIZE = 2;
+    private final int INITIAL_SIZE = 2;
     private int availableDigits;
     private int currentPosPointer = 0;
     private Item[] itemsHolder;
@@ -24,10 +24,25 @@ public class RandomizedQueue<Item> implements Iterable<Item>{
     public void enqueue(Item item) {
         throwExceptionIfNull(item);
         if (availableDigits == itemsHolder.length) {
-            expandArray(itemsHolder.length*2);
+            expandArray(itemsHolder.length * 2);
         }
         availableDigits++;
-        itemsHolder[currentPosPointer++] = item;
+        int position = findPositionToInsertNewValue();
+        itemsHolder[position] = item;
+    }
+
+    private Integer findPositionToInsertNewValue() {
+        int position = -1;
+        for (int i = 0; i < itemsHolder.length; i++) {
+            if (itemsHolder[i] == null) {
+                position = i;
+                break;
+            }
+        }
+        if (position == -1) {
+            expandArray(itemsHolder.length * 2);
+        }
+        return position;
     }
 
     private void throwExceptionIfNull(Item item) {
@@ -37,8 +52,11 @@ public class RandomizedQueue<Item> implements Iterable<Item>{
 
     private int getRandomNumber() {
         int position = 0;
-        while ( itemsHolder[position] == null ) {
+        while (itemsHolder[position] == null) {
             position = StdRandom.uniform(itemsHolder.length);
+            if (itemsHolder[position] == null) {
+                currentPosPointer = position;
+            }
         }
         return position;
     }
@@ -46,7 +64,7 @@ public class RandomizedQueue<Item> implements Iterable<Item>{
     private void expandArray(int capacity) {
         Item[] temp = (Item[]) new Object[capacity];
         for (int i = 0; i < itemsHolder.length; i++) {
-                temp[i] = itemsHolder[i];
+            temp[i] = itemsHolder[i];
         }
         itemsHolder = temp;
     }
@@ -65,10 +83,9 @@ public class RandomizedQueue<Item> implements Iterable<Item>{
     public Item dequeue() {
         throwExceptionIfQueueIsEmpty();
         if (availableDigits == itemsHolder.length / 4) {
-               squeezeArray(itemsHolder.length / 4);
+            squeezeArray(itemsHolder.length / 4);
         }
         availableDigits--;
-        currentPosPointer--;
         int position = getRandomNumber();
         Item temp = itemsHolder[position];
         itemsHolder[position] = null;
@@ -94,6 +111,7 @@ public class RandomizedQueue<Item> implements Iterable<Item>{
 
         int availableDigitsToIterate = availableDigits;
         int position = 0;
+
         @Override
         public boolean hasNext() {
             return availableDigitsToIterate > 0;
