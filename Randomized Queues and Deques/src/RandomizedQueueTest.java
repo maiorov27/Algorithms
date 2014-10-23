@@ -24,15 +24,23 @@ public class RandomizedQueueTest {
     @Test
     public void expandTheArrayIfNotEnoughtSpaceForElement() {
         randQueue.enqueue(1);
+        assertThat(randQueue.dequeue()).isIn(1,2,3,4,5);
         randQueue.enqueue(2);
+        assertThat(randQueue.dequeue()).isIn(1,2,3,4,5);
         randQueue.enqueue(3);
+        assertThat(randQueue.dequeue()).isIn(1,2,3,4,5);
         randQueue.enqueue(4);
         randQueue.enqueue(5);
-        assertThat(randQueue.dequeue()).isIn(1,2,3,4,5);
-        assertThat(randQueue.dequeue()).isIn(1,2,3,4,5);
-        assertThat(randQueue.dequeue()).isIn(1,2,3,4,5);
-        assertThat(randQueue.dequeue()).isIn(1,2,3,4,5);
-        assertThat(randQueue.dequeue()).isIn(1,2,3,4,5);
+        randQueue.enqueue(6);
+        randQueue.enqueue(7);
+        randQueue.enqueue(8);
+        randQueue.enqueue(9);
+        randQueue.enqueue(10);
+        assertThat(randQueue.dequeue()).isIn(1,2,3,4,5,6,7,8,9,10);
+        assertThat(randQueue.dequeue()).isIn(1,2,3,4,5,6,7,8,9,10);
+        assertThat(randQueue.dequeue()).isIn(1,2,3,4,5,6,7,8,9,10);
+        assertThat(randQueue.dequeue()).isIn(1,2,3,4,5,6,7,8,9,10);
+        assertThat(randQueue.dequeue()).isIn(1,2,3,4,5,6,7,8,9,10);
     }
 
     @Test

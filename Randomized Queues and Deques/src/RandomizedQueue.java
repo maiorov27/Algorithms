@@ -68,6 +68,7 @@ public class RandomizedQueue<Item> implements Iterable<Item>{
                squeezeArray(itemsHolder.length / 4);
         }
         availableDigits--;
+        currentPosPointer--;
         int position = getRandomNumber();
         Item temp = itemsHolder[position];
         itemsHolder[position] = null;
