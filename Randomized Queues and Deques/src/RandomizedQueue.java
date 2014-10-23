@@ -1,4 +1,5 @@
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 public class RandomizedQueue<Item> {
 
@@ -21,11 +22,17 @@ public class RandomizedQueue<Item> {
     }
 
     public void enqueue(Item item) {
+        throwExceptionIfNull(item);
         if (availableDigits == itemsHolder.length) {
             expandArray(itemsHolder.length*2);
         }
         availableDigits++;
         itemsHolder[currentPosPointer++] = item;
+    }
+
+    private void throwExceptionIfNull(Item item) {
+        if (item == null)
+            throw new NullPointerException();
     }
 
     private int getRandomNumber() {
@@ -56,6 +63,7 @@ public class RandomizedQueue<Item> {
     }
 
     public Item dequeue() {
+        throwExceptionIfQueueIsEmpty();
         if (availableDigits == itemsHolder.length / 4) {
                squeezeArray(itemsHolder.length / 4);
         }
@@ -66,13 +74,19 @@ public class RandomizedQueue<Item> {
         return temp;
     }
 
+    private void throwExceptionIfQueueIsEmpty() {
+        if (isEmpty())
+            throw new NoSuchElementException();
+    }
+
     public Item sample() {
+        throwExceptionIfQueueIsEmpty();
         int position = getRandomNumber();
         return itemsHolder[position];
     }
 
     public Iterator<Item> iterator() {
-        return null;
+        return new RandQueueIterator();
     }
 
     private class RandQueueIterator implements Iterator<Item> {
@@ -86,11 +100,17 @@ public class RandomizedQueue<Item> {
 
         @Override
         public Item next() {
+            throwExceptionIfItWasLastElement();
             while (itemsHolder[position] == null) {
                 position++;
             }
             availableDigitsToIterate--;
-            return itemsHolder[position];
+            return itemsHolder[position++];
+        }
+
+        private void throwExceptionIfItWasLastElement() {
+            if (hasNext() == false)
+                throw new NoSuchElementException();
         }
     }
 
