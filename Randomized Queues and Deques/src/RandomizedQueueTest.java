@@ -72,11 +72,11 @@ public class RandomizedQueueTest {
         randQueue.enqueue(5);
         Iterator<Integer> it = randQueue.iterator();
         assertThat(it.hasNext()).isEqualTo(true);
-        assertThat(it.next()).isIn(1,2,3,4,5);
-        assertThat(it.next()).isIn(1,2,3,4,5);
-        assertThat(it.next()).isIn(1,2,3,4,5);
-        assertThat(it.next()).isIn(1,2,3,4,5);
-        assertThat(it.next()).isIn(1,2,3,4,5);
+        assertThat(it.next()).isIn(1, 2, 3, 4, 5);
+        assertThat(it.next()).isIn(1, 2, 3, 4, 5);
+        assertThat(it.next()).isIn(1, 2, 3, 4, 5);
+        assertThat(it.next()).isIn(1, 2, 3, 4, 5);
+        assertThat(it.next()).isIn(1, 2, 3, 4, 5);
         assertThat(it.hasNext()).isEqualTo(false);
     }
 
@@ -89,11 +89,11 @@ public class RandomizedQueueTest {
         randQueue.enqueue(5);
         Iterator<Integer> it = randQueue.iterator();
         assertThat(it.hasNext()).isEqualTo(true);
-        assertThat(it.next()).isIn(1,2,3,4,5);
-        assertThat(it.next()).isIn(1,2,3,4,5);
-        assertThat(it.next()).isIn(1,2,3,4,5);
-        assertThat(it.next()).isIn(1,2,3,4,5);
-        assertThat(it.next()).isIn(1,2,3,4,5);
+        assertThat(it.next()).isIn(1, 2, 3, 4, 5);
+        assertThat(it.next()).isIn(1, 2, 3, 4, 5);
+        assertThat(it.next()).isIn(1, 2, 3, 4, 5);
+        assertThat(it.next()).isIn(1, 2, 3, 4, 5);
+        assertThat(it.next()).isIn(1, 2, 3, 4, 5);
         assertThat(it.hasNext()).isEqualTo(false);
         it.next();
     }
@@ -116,6 +116,24 @@ public class RandomizedQueueTest {
         Iterator<Integer> it = randQueue.iterator();
         it.next();
         it.remove();
+    }
+
+    @Test
+    public void testRandomness() {
+        RandomizedQueue<String> rq  = new RandomizedQueue<String>();
+        rq.enqueue("A");
+        rq.enqueue("B");
+        rq.enqueue("C");
+        int ac = 0, bc = 0, cc = 0;
+        for (int i = 0; i < 3000; i++) {
+            String temp = rq.sample();
+            if (temp.equals("A")) ac++;
+            if (temp.equals("B")) bc++;
+            if (temp.equals("C")) cc++;
+        }
+        assertThat(ac).isBetween(950, 1050);
+        assertThat(bc).isBetween(950, 1050);
+        assertThat(cc).isBetween(950, 1050);
     }
 
 

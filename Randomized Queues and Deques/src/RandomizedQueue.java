@@ -52,6 +52,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 
     private int getRandomNumber() {
         int position = 0;
+        position = StdRandom.uniform(itemsHolder.length);
         while (itemsHolder[position] == null) {
             position = StdRandom.uniform(itemsHolder.length);
             if (itemsHolder[position] == null) {
