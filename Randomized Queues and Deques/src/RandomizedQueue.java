@@ -5,9 +5,8 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 
     private final int INITIAL_SIZE = 2;
     private int availableDigits;
-    private int currentPosPointer = 0;
     private Item[] itemsHolder;
-
+    private int position;
 
     public RandomizedQueue() {
         itemsHolder = (Item[]) new Object[INITIAL_SIZE];
@@ -28,10 +27,14 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
         }
         availableDigits++;
         int position = findPositionToInsertNewValue();
-        itemsHolder[position++] = item;
+        itemsHolder[position] = item;
     }
 
     private Integer findPositionToInsertNewValue() {
+        if (position < itemsHolder.length -1){
+            position++;
+            return position;
+        }
         int position = -1;
         for (int i = 0; i < itemsHolder.length; i++) {
             if (itemsHolder[i] == null) {
@@ -55,9 +58,6 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
         position = StdRandom.uniform(itemsHolder.length);
         while (itemsHolder[position] == null) {
             position = StdRandom.uniform(itemsHolder.length);
-            if (itemsHolder[position] == null) {
-                currentPosPointer = position;
-            }
         }
         return position;
     }
